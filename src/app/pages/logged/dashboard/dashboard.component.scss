@@ -1,0 +1,684 @@
+// Paleta de cores governamentais do Ceará
+:root {
+  --ceara-primary: #1e4b2a;
+  --ceara-secondary: #2d6e3e;
+  --ceara-accent: #4a9d5f;
+  --ceara-light: #6bb77b;
+  --ceara-gold: #f4c430;
+  --bg-dashboard: #f8f9fc;
+  --card-shadow: 0 4px 15px rgba(30, 75, 42, 0.1);
+  --border-radius: 12px;
+}
+
+// Main dashboard container
+.dashboard-main {
+  min-height: calc(100vh - 80px);
+  background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+  padding: 2rem 0;
+
+  .container-fluid {
+    max-width: 1600px;
+  }
+}
+
+// Dashboard header
+.dashboard-header {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  border-left: 5px solid var(--ceara-gold);
+
+  .page-title {
+    color: var(--ceara-primary);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+
+    i {
+      color: var(--ceara-accent);
+      margin-right: 1rem;
+    }
+  }
+
+  .page-subtitle {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-actions {
+    .btn {
+      border-radius: 25px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--ceara-accent), var(--ceara-secondary));
+      border: none;
+    }
+  }
+
+  .last-update {
+    color: #6c757d;
+    display: block;
+    margin-top: 1rem;
+
+    i {
+      color: var(--ceara-accent);
+    }
+  }
+}
+
+// Metrics row
+.metrics-row {
+  .metric-card {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #e9ecef;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--ceara-primary), var(--ceara-gold));
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .metric-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+
+      i {
+        font-size: 2rem;
+        color: white;
+      }
+    }
+
+    .metric-content {
+      flex-grow: 1;
+
+      .metric-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        line-height: 1;
+      }
+
+      .metric-label {
+        font-size: 1rem;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .metric-change {
+        font-size: 0.85rem;
+        font-weight: 500;
+
+        &.positive {
+          color: #28a745;
+        }
+
+        &.negative {
+          color: #dc3545;
+        }
+
+        i {
+          margin-right: 0.3rem;
+        }
+      }
+    }
+  }
+
+  .metric-primary {
+    .metric-icon {
+      background: linear-gradient(135deg, var(--ceara-primary), var(--ceara-secondary));
+    }
+    .metric-number {
+      color: var(--ceara-primary);
+    }
+  }
+
+  .metric-info {
+    .metric-icon {
+      background: linear-gradient(135deg, #17a2b8, #20c997);
+    }
+    .metric-number {
+      color: #17a2b8;
+    }
+  }
+
+  .metric-warning {
+    .metric-icon {
+      background: linear-gradient(135deg, #ffc107, #fd7e14);
+    }
+    .metric-number {
+      color: #ffc107;
+    }
+  }
+
+  .metric-success {
+    .metric-icon {
+      background: linear-gradient(135deg, #28a745, #20c997);
+    }
+    .metric-number {
+      color: #28a745;
+    }
+  }
+
+  // Animações específicas por posição
+  .col-xl-3:nth-child(1) .metric-card { animation-delay: 0.1s; }
+  .col-xl-3:nth-child(2) .metric-card { animation-delay: 0.2s; }
+  .col-xl-3:nth-child(3) .metric-card { animation-delay: 0.3s; }
+  .col-xl-3:nth-child(4) .metric-card { animation-delay: 0.4s; }
+}
+
+// Dashboard cards
+.dashboard-card {
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+
+  .card-header {
+    background: linear-gradient(135deg, var(--ceara-primary), var(--ceara-secondary));
+    color: black;
+    border: none;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .card-title {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+
+      i {
+        color: var(--ceara-gold);
+      }
+    }
+
+    .card-actions {
+      .form-select {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: black;
+        font-size: 0.9rem;
+
+        &:focus {
+          background-color: rgba(255, 255, 255, 0.2);
+          border-color: var(--ceara-gold);
+          box-shadow: none;
+        }
+      }
+
+      .btn {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: black;
+        font-size: 0.85rem;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+}
+
+// Period metrics
+.period-metrics {
+  .period-stat {
+    padding: 1rem;
+    border-radius: 8px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #e9ecef;
+      transform: scale(1.05);
+    }
+
+    .period-number {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .period-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+}
+
+// Status list
+.status-list {
+  .status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .status-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .status-badge {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 15px;
+        font-weight: 600;
+      }
+
+      .status-count {
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+    }
+
+    .status-progress {
+      flex: 1;
+      margin-left: 1rem;
+
+      .progress {
+        height: 8px;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+// Performance table
+.tecnico-row {
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(74, 157, 95, 0.05);
+    transform: translateX(3px);
+  }
+
+  .tech-avatar-small {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, var(--ceara-primary), var(--ceara-secondary));
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.8rem;
+  }
+
+  .tempo-medio {
+    font-weight: 600;
+    color: var(--ceara-secondary);
+  }
+
+  .avaliacao {
+    .fa-star {
+      font-size: 0.9rem;
+    }
+  }
+}
+
+// Widget cards
+.widget-card {
+  height: 100%;
+
+  .priority-list,
+  .category-list {
+    .priority-item,
+    .category-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #f0f0f0;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .priority-info,
+    .category-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex: 1;
+
+      .priority-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 12px;
+        font-weight: 600;
+      }
+
+      .category-name {
+        font-weight: 500;
+      }
+
+      .priority-count,
+      .category-count {
+        margin-left: auto;
+        font-weight: 700;
+        color: var(--ceara-primary);
+      }
+    }
+
+    .category-progress {
+      margin-top: 0.5rem;
+
+      .progress {
+        height: 6px;
+      }
+    }
+  }
+}
+
+// SLA metrics
+.sla-metrics {
+  .sla-item {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .sla-label {
+      font-weight: 600;
+      color: var(--ceara-primary);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .sla-value {
+      .progress {
+        height: 10px;
+        border-radius: 5px;
+        margin-bottom: 0.3rem;
+      }
+
+      small {
+        font-weight: 500;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Recent tickets table
+.problema-desc {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Status badges
+.status-badge {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.badge-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.badge-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.badge-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.badge-secondary {
+  background-color: #e2e3e5;
+  color: #383d41;
+  border: 1px solid #d6d8db;
+}
+
+.badge-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+// Progress bars custom
+.progress {
+  background-color: #f0f0f0;
+}
+
+.progress-sm {
+  height: 6px;
+}
+
+// Responsividade
+@media (max-width: 1199px) {
+  .dashboard-header {
+    padding: 1.5rem;
+
+    .page-title {
+      font-size: 2.2rem;
+    }
+  }
+
+  .metric-card {
+    padding: 1.2rem;
+
+    .metric-icon {
+      width: 60px;
+      height: 60px;
+
+      i {
+        font-size: 1.7rem;
+      }
+    }
+
+    .metric-content .metric-number {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .dashboard-main {
+    padding: 1.5rem 0;
+  }
+
+  .dashboard-header {
+    padding: 1.2rem;
+    text-align: center;
+
+    .page-title {
+      font-size: 2rem;
+    }
+
+    .header-actions {
+      margin-top: 1rem;
+      justify-content: center;
+
+      .btn {
+        margin: 0.25rem;
+      }
+    }
+  }
+
+  .metric-card {
+    margin-bottom: 1rem;
+    text-align: center;
+    flex-direction: column;
+
+    .metric-icon {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .period-stat {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-header {
+    padding: 1rem;
+
+    .page-title {
+      font-size: 1.7rem;
+
+      i {
+        display: none;
+      }
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .metric-card {
+    padding: 1rem;
+
+    .metric-icon {
+      width: 50px;
+      height: 50px;
+
+      i {
+        font-size: 1.4rem;
+      }
+    }
+
+    .metric-content .metric-number {
+      font-size: 1.8rem;
+    }
+  }
+
+  .dashboard-card .card-header {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .card-actions {
+      width: 100%;
+    }
+  }
+
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+
+  .tech-avatar-small {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .dashboard-main {
+    padding: 1rem 0;
+  }
+
+  .metric-card .metric-content .metric-number {
+    font-size: 1.5rem;
+  }
+
+  .period-number {
+    font-size: 1.5rem !important;
+  }
+
+  .problema-desc {
+    max-width: 150px;
+  }
+}
+
+// Animações
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Aplicar animações
+.dashboard-header,
+.metric-card,
+.dashboard-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Animação para widgets
+.row:last-child .widget-card {
+  animation: slideInRight 0.6s ease-out;
+  animation-delay: 0.5s;
+}

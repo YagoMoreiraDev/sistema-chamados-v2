@@ -1,1 +1,178 @@
-<p>table-called works!</p>
+<div class="table-container">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="card-title mb-0">
+        <i class="fas fa-list-alt me-2"></i>
+        Lista de Chamados
+      </h5>
+    </div>
+
+    <div class="card-body p-0">
+      <!-- Filtros e Busca -->
+      <div class="table-filters p-3 border-bottom">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fas fa-search"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Buscar por nº do chamado, solicitante, técnico..."
+                [(ngModel)]="searchTerm"
+                (input)="filterChamados()"
+              >
+            </div>
+          </div>
+          <div class="col-md-3">
+            <select class="form-select" [(ngModel)]="statusFilter" (change)="filterChamados()">
+              <option value="">Todos os Status</option>
+              <option value="Aberto">Aberto</option>
+              <option value="Em Andamento">Em Andamento</option>
+              <option value="Resolvido">Resolvido</option>
+              <option value="Fechado">Fechado</option>
+            </select>
+          </div>
+          <div class="col-md-3 text-end">
+            <span class="text-muted">
+              Total: <strong>{{ filteredChamados.length }}</strong> chamados
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela Responsiva -->
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light sticky-top">
+            <tr>
+              <th scope="col" class="text-center">
+                <i class="fas fa-hashtag me-1"></i>
+                Nº Chamado
+              </th>
+              <th scope="col">
+                <i class="fas fa-user me-1"></i>
+                Solicitante
+              </th>
+              <th scope="col" class="d-none d-md-table-cell">
+                <i class="fas fa-align-left me-1"></i>
+                Descrição
+              </th>
+              <th scope="col" class="d-none d-lg-table-cell">
+                <i class="fas fa-calendar-alt me-1"></i>
+                Data - Hora
+              </th>
+              <th scope="col" class="d-none d-xl-table-cell">
+                <i class="fas fa-comment me-1"></i>
+                Comentário
+              </th>
+              <th scope="col" class="d-none d-lg-table-cell">
+                <i class="fas fa-user-tie me-1"></i>
+                Técnico
+              </th>
+              <th scope="col" class="text-center">
+                <i class="fas fa-flag me-1"></i>
+                Status
+              </th>
+              <th scope="col" class="text-center">
+                <i class="fas fa-cogs me-1"></i>
+                Ações
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let chamado of filteredChamados; trackBy: trackByChamado; index as i"
+                class="table-row"
+                [class.table-row-highlight]="i % 2 === 0">
+
+              <td class="text-center fw-bold">
+                #{{ chamado.numero }}
+              </td>
+
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="user-avatar me-2">
+                    {{ chamado.solicitante.charAt(0).toUpperCase() }}
+                  </div>
+                  <div>
+                    <div class="fw-medium">{{ chamado.solicitante }}</div>
+                    <small class="text-muted d-md-none">{{ chamado.dataHora | date:'dd/MM/yy HH:mm' }}</small>
+                  </div>
+                </div>
+              </td>
+
+              <td class="d-none d-md-table-cell">
+                <div class="description-cell">
+                  {{ chamado.descricao }}
+                </div>
+              </td>
+
+              <td class="d-none d-lg-table-cell text-nowrap">
+                <div>
+                  <i class="fas fa-calendar-day me-1 text-muted"></i>
+                  {{ chamado.dataHora | date:'dd/MM/yyyy' }}
+                </div>
+                <small class="text-muted">
+                  <i class="fas fa-clock me-1"></i>
+                  {{ chamado.dataHora | date:'HH:mm' }}
+                </small>
+              </td>
+
+              <td class="d-none d-xl-table-cell">
+                <div class="comment-cell">
+                  {{ chamado.comentario || 'Sem comentários' }}
+                </div>
+              </td>
+
+              <td class="d-none d-lg-table-cell">
+                <div class="d-flex align-items-center">
+                  <div class="tech-avatar me-2" *ngIf="chamado.tecnico">
+                    {{ chamado.tecnico.charAt(0).toUpperCase() }}
+                  </div>
+                  <div>
+                    <div class="fw-medium" *ngIf="chamado.tecnico; else noTech">
+                      {{ chamado.tecnico }}
+                    </div>
+                    <ng-template #noTech>
+                      <span class="text-muted fst-italic">Não atribuído</span>
+                    </ng-template>
+                  </div>
+                </div>
+              </td>
+
+              <td class="text-center">
+                <span class="status-badge" [ngClass]="getStatusClass(chamado.status)">
+                  {{ chamado.status }}
+                </span>
+              </td>
+
+              <td class="text-center">
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-sm btn-outline-primary me-1"
+                          title="Visualizar">
+                    <i class="fas fa-eye"></i>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary"
+                          title="Editar">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Linha de "Nenhum resultado" -->
+            <tr *ngIf="filteredChamados.length === 0">
+              <td colspan="8" class="text-center py-4">
+                <div class="no-results">
+                  <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                  <p class="text-muted mb-0">Nenhum chamado encontrado</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

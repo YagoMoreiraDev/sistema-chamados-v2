@@ -1,0 +1,569 @@
+/* ========================================
+   CALLED MODAL COMPONENT STYLES
+   ======================================== */
+
+// Cores do Governo do Ceará
+$primary-blue: #1e3a8a;
+$secondary-blue: #3b82f6;
+$light-blue: #dbeafe;
+$success-green: #10b981;
+$warning-orange: #f59e0b;
+$danger-red: #ef4444;
+$light-gray: #f8fafc;
+$medium-gray: #64748b;
+$dark-gray: #334155;
+$white: #ffffff;
+
+// Gradients
+$gradient-primary: linear-gradient(135deg, $primary-blue 0%, $secondary-blue 100%);
+$gradient-light: linear-gradient(135deg, $light-blue 0%, $white 100%);
+
+/* ========================================
+   MODAL BASE STYLES
+   ======================================== */
+
+.modal {
+  z-index: 1060;
+
+  &.fade {
+    transition: opacity 0.15s linear;
+  }
+
+  &.show {
+    display: block !important;
+  }
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1050;
+
+  &.fade {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+  }
+
+  &.show {
+    opacity: 1;
+  }
+}
+
+.modal-dialog {
+  max-width: 800px;
+  margin: 1rem auto;
+
+  @media (max-width: 768px) {
+    max-width: 95%;
+    margin: 0.5rem auto;
+  }
+}
+
+/* ========================================
+   MODAL CONTENT STYLES
+   ======================================== */
+
+.modal-custom {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========================================
+   MODAL HEADER
+   ======================================== */
+
+.modal-header {
+  background: $gradient-primary;
+  color: $white;
+  padding: 1.5rem;
+  border-bottom: none;
+
+  .modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+
+    i {
+      color: $light-blue;
+    }
+  }
+
+  .btn-close-custom {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+/* ========================================
+   MODAL BODY
+   ======================================== */
+
+.modal-body {
+  padding: 2rem;
+  background-color: $light-gray;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba($primary-blue, 0.3) transparent;
+
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    max-height: 75vh;
+  }
+}
+
+/* ========================================
+   FORM SECTIONS
+   ======================================== */
+
+.form-section {
+  background-color: $white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba($primary-blue, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.section-title {
+  color: $primary-blue;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid $light-blue;
+  display: flex;
+  align-items: center;
+
+  i {
+    color: $secondary-blue;
+    margin-right: 0.5rem;
+  }
+}
+
+/* ========================================
+   FORM CONTROLS
+   ======================================== */
+
+.form-label {
+  color: $dark-gray;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+
+  &.required::after {
+    content: " *";
+    color: $danger-red;
+    font-weight: bold;
+  }
+}
+
+.form-control,
+.form-select {
+  border: 2px solid rgba($primary-blue, 0.15);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background-color: $white;
+
+  &:focus {
+    border-color: $secondary-blue;
+    box-shadow: 0 0 0 3px rgba($secondary-blue, 0.1);
+    outline: none;
+  }
+
+  &.is-valid {
+    border-color: $success-green;
+    background-image: none;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($success-green, 0.1);
+    }
+  }
+
+  &.is-invalid {
+    border-color: $danger-red;
+    background-image: none;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($danger-red, 0.1);
+    }
+  }
+
+  &:disabled {
+    background-color: #f1f5f9;
+    color: $medium-gray;
+    cursor: not-allowed;
+  }
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ========================================
+   VALIDATION FEEDBACK
+   ======================================== */
+
+.form-text {
+  color: $medium-gray;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+
+  i {
+    color: $secondary-blue;
+  }
+}
+
+.invalid-feedback {
+  display: block;
+  color: $danger-red;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.valid-feedback {
+  display: block;
+  color: $success-green;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+/* ========================================
+   ALERTS
+   ======================================== */
+
+.alert {
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+
+  &.alert-warning {
+    background-color: rgba($warning-orange, 0.1);
+    color: #92400e;
+    border-left: 4px solid $warning-orange;
+
+    i {
+      color: $warning-orange;
+    }
+  }
+}
+
+/* ========================================
+   PRIORITY BADGES
+   ======================================== */
+
+.priority-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &.priority-1 {
+    background-color: rgba($danger-red, 0.15);
+    color: $danger-red;
+    border: 1px solid rgba($danger-red, 0.3);
+  }
+
+  &.priority-2 {
+    background-color: rgba($warning-orange, 0.15);
+    color: #ea580c;
+    border: 1px solid rgba($warning-orange, 0.3);
+  }
+
+  &.priority-3 {
+    background-color: rgba(#eab308, 0.15);
+    color: #a16207;
+    border: 1px solid rgba(#eab308, 0.3);
+  }
+
+  &.priority-4 {
+    background-color: rgba($success-green, 0.15);
+    color: $success-green;
+    border: 1px solid rgba($success-green, 0.3);
+  }
+}
+
+/* ========================================
+   SUMMARY CARD
+   ======================================== */
+
+.summary-card {
+  background: $gradient-light;
+  border: 1px solid rgba($primary-blue, 0.1);
+  border-radius: 8px;
+  padding: 1.25rem;
+
+  p {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+
+    strong {
+      color: $primary-blue;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.estimated-time {
+  text-align: center;
+
+  small {
+    color: $medium-gray;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .time-estimate {
+    background-color: $primary-blue;
+    color: $white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+}
+
+/* ========================================
+   MODAL FOOTER
+   ======================================== */
+
+.modal-footer {
+  padding: 1.5rem 2rem;
+  background-color: $white;
+  border-top: 1px solid rgba($primary-blue, 0.1);
+
+  @media (max-width: 768px) {
+    padding: 1.25rem 1.5rem;
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease;
+
+    &.btn-primary {
+      background: $gradient-primary;
+      color: $white;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba($primary-blue, 0.3);
+      }
+
+      &:disabled {
+        background-color: $medium-gray;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    &.btn-outline-primary {
+      border: 2px solid $primary-blue;
+      color: $primary-blue;
+      background-color: transparent;
+
+      &:hover {
+        background-color: $primary-blue;
+        color: $white;
+        transform: translateY(-1px);
+      }
+    }
+
+    &.btn-secondary {
+      background-color: #6b7280;
+      color: $white;
+
+      &:hover {
+        background-color: #4b5563;
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+/* ========================================
+   SPINNER
+   ======================================== */
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.125em;
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 0.25rem;
+    max-width: calc(100% - 0.5rem);
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .form-section {
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .modal-header {
+    padding: 1rem;
+
+    .modal-title {
+      font-size: 1.1rem;
+    }
+  }
+
+  .modal-footer {
+    padding: 1rem;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY IMPROVEMENTS
+   ======================================== */
+
+// Focus styles for keyboard navigation
+.form-control:focus,
+.form-select:focus,
+.btn:focus {
+  outline: 2px solid $secondary-blue;
+  outline-offset: 2px;
+}
+
+// Reduced motion for accessibility
+@media (prefers-reduced-motion: reduce) {
+  .modal-custom {
+    animation: none;
+  }
+
+  .btn,
+  .form-control,
+  .form-select {
+    transition: none;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .form-control,
+  .form-select {
+    border-width: 3px;
+  }
+
+  .priority-badge {
+    border-width: 2px;
+  }
+}
+
+/* ========================================
+   DARK MODE SUPPORT (Future Enhancement)
+   ======================================== */
+
+@media (prefers-color-scheme: dark) {
+  // Dark mode styles can be added here if needed
+  // Currently keeping light theme as per government standards
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+  .modal,
+  .modal-backdrop {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   CUSTOM SCROLLBAR
+   ======================================== */
+
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba($primary-blue, 0.3);
+  border-radius: 3px;
+
+  &:hover {
+    background-color: rgba($primary-blue, 0.5);
+  }
+}

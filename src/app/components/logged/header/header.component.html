@@ -1,1 +1,147 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg navbar-dark bg-government fixed-top">
+  <div class="container-fluid">
+
+    <!-- Logo/Brand -->
+    <a class="navbar-brand fw-bold" href="#">
+      <i class="fas fa-headset me-2"></i>
+      <span class="brand-text">HelpDesk</span>
+      <small class="brand-subtitle d-none d-md-inline">SEDIH</small>
+    </a>
+
+    <!-- Mobile toggle button -->
+    <button class="navbar-toggler border-0" type="button"
+            (click)="toggleMobileMenu()"
+            [attr.aria-expanded]="isMobileMenuOpen"
+            aria-controls="navbarNav"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="navbar-collapse"
+         [class.collapse]="!isMobileMenuOpen"
+         id="navbarNav">
+
+      <!-- Navigation Menu -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeRoute === 'inicio'"
+             (click)="setActiveRoute('inicio')"
+             href="#"
+             routerLink="/inicio"
+             data-tooltip="Página inicial do sistema">
+            <i class="fas fa-home me-1"></i>
+            Início
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeRoute === 'todos-chamados'"
+             (click)="setActiveRoute('todos-chamados')"
+             href="#"
+             routerLink="/todos-chamados"
+             data-tooltip="Visualizar todos os chamados">
+            <i class="fas fa-list me-1"></i>
+            Todos os Chamados
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeRoute === 'novo-chamado'"
+             (click)="setActiveRoute('novo-chamado')"
+             href="#"
+             routerLink="/novo-chamado"
+             data-tooltip="Criar novo chamado">
+            <i class="fas fa-plus-circle me-1"></i>
+            Novo Chamado
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeRoute === 'relatorios'"
+             (click)="setActiveRoute('relatorios')"
+             href="#"
+             routerLink="/relatorios"
+             data-tooltip="Gerar relatórios">
+            <i class="fas fa-chart-bar me-1"></i>
+            Relatórios
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link"
+             [class.active]="activeRoute === 'servicos'"
+             (click)="setActiveRoute('servicos')"
+             href="#"
+             routerLink="/servicos"
+             data-tooltip="Configurar serviços">
+            <i class="fas fa-cogs me-1"></i>
+            Serviços
+          </a>
+        </li>
+      </ul>
+
+      <!-- Quick Actions -->
+      <div class="d-flex align-items-center">
+        <!-- Botão Novo Chamado -->
+        <button class="btn btn-quick-action me-3"
+                type="button"
+                (click)="openCalledModal()"
+                data-tooltip="Abrir novo chamado rapidamente">
+          <i class="fas fa-plus me-1"></i>
+          <span class="d-none d-lg-inline">Novo Chamado</span>
+        </button>
+
+        <!-- Search Bar -->
+        <form class="search-form me-3" (submit)="onSearch($event)">
+          <div class="input-group search-tooltip-container" data-tooltip="Buscar chamados, usuários ou tickets">
+            <input class="form-control search-input"
+                   type="search"
+                   placeholder="Pesquisar..."
+                   [(ngModel)]="searchTerm"
+                   name="search"
+                   aria-label="Search">
+            <button class="btn btn-search" type="submit" data-tooltip="Executar pesquisa">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- User Menu -->
+        <div class="dropdown">
+          <button class="btn btn-user dropdown-toggle"
+                  type="button"
+                  id="userDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  data-tooltip="Menu do usuário">
+            <div class="user-avatar me-2">
+              <i class="fas fa-user"></i>
+            </div>
+            <span class="d-none d-md-inline">{{ userName }}</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i>Meu Perfil</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" (click)="logout()"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Spacer para compensar navbar fixa -->
+<div class="navbar-spacer"></div>
+
+<!-- Modal de Novo Chamado -->
+<app-called-modal
+  [isModalOpen]="isCalledModalOpen"
+  (modalClosed)="onCalledModalClosed()"
+  (chamadoCriado)="onChamadoCriado($event)">
+</app-called-modal>

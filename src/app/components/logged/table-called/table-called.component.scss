@@ -1,0 +1,313 @@
+// Paleta de cores do projeto
+:root {
+  --ceara-green-primary: #2d6e3e;
+  --ceara-green-secondary: #4a9d5f;
+  --ceara-green-light: #6bb77b;
+  --ceara-green-dark: #1e4b2a;
+}
+
+// Container principal da tabela
+.table-container {
+  margin: 1rem 0;
+
+  .card {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, var(--ceara-green-primary), var(--ceara-green-secondary));
+    border-bottom: none;
+    padding: 1.2rem 1.5rem;
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Seção de filtros
+.table-filters {
+  background-color: #f8f9fa;
+
+  .input-group-text {
+    background-color: white;
+    border-right: none;
+    color: #6c757d;
+  }
+
+  .form-control,
+  .form-select {
+    border-left: none;
+
+    &:focus {
+      border-color: var(--ceara-green-secondary);
+      box-shadow: 0 0 0 0.2rem rgba(74, 157, 95, 0.25);
+    }
+  }
+}
+
+// Tabela responsiva
+.table-responsive {
+  max-height: 600px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--ceara-green-light);
+    border-radius: 4px;
+  }
+}
+
+// Estilos da tabela
+.table {
+  margin-bottom: 0;
+
+  th {
+    border-top: none;
+    font-weight: 600;
+    color: var(--ceara-green-dark);
+    font-size: 0.9rem;
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+
+    i {
+      color: var(--ceara-green-secondary);
+    }
+  }
+
+  td {
+    padding: 1rem 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .table-row {
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: rgba(74, 157, 95, 0.05);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .table-row-highlight {
+    background-color: rgba(248, 249, 250, 0.8);
+  }
+}
+
+// Avatar do usuário
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--ceara-green-primary), var(--ceara-green-secondary));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+// Avatar do técnico
+.tech-avatar {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  border: 2px solid #e3f2fd;
+}
+
+// Células de descrição e comentário
+.description-cell,
+.comment-cell {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:hover {
+    white-space: normal;
+    overflow: visible;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    position: relative;
+  }
+}
+
+// Status badges
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.status-aberto {
+  background-color: #ffeaa7;
+  color: #d63031;
+}
+
+.status-andamento {
+  background-color: #74b9ff;
+  color: #0984e3;
+}
+
+.status-resolvido {
+  background-color: #55efc4;
+  color: #00b894;
+}
+
+.status-fechado {
+  background-color: #fd79a8;
+  color: #e84393;
+}
+
+// Botões de ação
+.action-buttons {
+  .btn {
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}
+
+.btn-outline-primary {
+  border-color: var(--ceara-green-secondary);
+  color: var(--ceara-green-secondary);
+
+  &:hover {
+    background-color: var(--ceara-green-secondary);
+    border-color: var(--ceara-green-secondary);
+  }
+}
+
+// Estado vazio
+.no-results {
+  padding: 2rem;
+
+  i {
+    opacity: 0.5;
+  }
+}
+
+// Responsividade
+@media (max-width: 1199px) {
+  .description-cell,
+  .comment-cell {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 991px) {
+  .table-filters {
+    .row > div {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .description-cell,
+  .comment-cell {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 767px) {
+  .table-container {
+    margin: 0.5rem 0;
+  }
+
+  .card-header {
+    padding: 1rem;
+
+    .card-title {
+      font-size: 1rem;
+    }
+  }
+
+  .table-filters {
+    padding: 1rem;
+  }
+
+  .table {
+    th,
+    td {
+      padding: 0.75rem 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+
+  .tech-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .status-badge {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 70px;
+  }
+
+  .action-buttons .btn {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .table th,
+  .table td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.85rem;
+  }
+
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .tech-avatar {
+    width: 25px;
+    height: 25px;
+    font-size: 0.7rem;
+  }
+}

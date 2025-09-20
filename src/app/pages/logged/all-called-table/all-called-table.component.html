@@ -1,1 +1,129 @@
-<p>all-called-table works!</p>
+<!-- Header Component -->
+<app-header></app-header>
+
+<!-- Zona sensível do mouse no topo -->
+<div class="mouse-top-zone"></div>
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h1 class="page-title">
+            <i class="fas fa-list-alt me-2 text-primary"></i>
+            Todos os Chamados
+          </h1>
+          <p class="page-subtitle text-muted mb-0">
+            Gerencie e acompanhe todos os chamados do sistema
+          </p>
+        </div>
+        <div class="col-md-6 text-md-end mt-3 mt-md-0">
+          <div class="page-actions">
+            <button class="btn btn-outline-secondary me-2" type="button" (click)="refreshData()">
+              <i class="fas fa-sync-alt me-1"></i>
+              Atualizar
+            </button>
+            <button class="btn btn-primary" type="button" (click)="exportData()">
+              <i class="fas fa-download me-1"></i>
+              Exportar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breadcrumb Navigation -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#" class="breadcrumb-link">
+            <i class="fas fa-home"></i>
+            Início
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          Todos os Chamados
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Statistics Cards -->
+    <div class="row statistics-row mb-4">
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card stat-card-total">
+          <div class="stat-icon">
+            <i class="fas fa-tickets"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ totalChamados }}</h3>
+            <p class="stat-label">Total de Chamados</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card stat-card-open">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ chamadosAbertos }}</h3>
+            <p class="stat-label">Em Aberto</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card stat-card-progress">
+          <div class="stat-icon">
+            <i class="fas fa-spinner"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ chamadosAndamento }}</h3>
+            <p class="stat-label">Em Andamento</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mb-3">
+        <div class="stat-card stat-card-resolved">
+          <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3 class="stat-number">{{ chamadosResolvidos }}</h3>
+            <p class="stat-label">Resolvidos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table Component -->
+    <div class="table-section">
+      <app-table-called></app-table-called>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="main-footer">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <p class="footer-text mb-0">
+          © 2025 Sistema HelpDesk - Governo do Estado do Ceará
+        </p>
+      </div>
+      <div class="col-md-6 text-md-end mt-2 mt-md-0">
+        <p class="footer-version mb-0">
+          Versão 2.0.0 |
+          <a href="#" class="footer-link">Suporte Técnico</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

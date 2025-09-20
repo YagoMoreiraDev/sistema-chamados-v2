@@ -1,0 +1,468 @@
+// Paleta de cores do projeto
+:root {
+  --ceara-primary: #1e4b2a;
+  --ceara-secondary: #2d6e3e;
+  --ceara-accent: #4a9d5f;
+  --ceara-light: #6bb77b;
+  --ceara-gold: #f4c430;
+  --bg-light: #f8f9fa;
+  --border-light: #e9ecef;
+}
+
+// Zona sensível do mouse no topo
+.mouse-top-zone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 999; // Menor que o header (1000)
+  background: transparent;
+  pointer-events: none; // Não interfere com cliques
+
+  // Indicador visual quando o header está escondido (opcional)
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--ceara-gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  // Mostrar indicador quando header estiver escondido
+  .header-hidden ~ &::after {
+    opacity: 0.7;
+  }
+}
+
+// Container principal
+.main-content {
+  min-height: calc(100vh - 80px); // Compensa altura do header
+  background-color: var(--bg-light);
+  padding: 2rem 0 4rem;
+
+  .container-fluid {
+    max-width: 1400px; // Limita largura máxima
+  }
+}
+
+// Cabeçalho da página
+.page-header {
+  margin-bottom: 2rem;
+  border-bottom: 2px solid var(--border-light);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ceara-primary);
+    margin-bottom: 0.5rem;
+
+    i {
+      color: var(--ceara-accent);
+    }
+  }
+
+  .page-subtitle {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .page-actions {
+    .btn {
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .btn-primary {
+      background-color: var(--ceara-accent);
+      border-color: var(--ceara-accent);
+
+      &:hover {
+        background-color: var(--ceara-secondary);
+        border-color: var(--ceara-secondary);
+      }
+    }
+
+    .btn-outline-secondary {
+      border-color: #6c757d;
+      color: #6c757d;
+
+      &:hover {
+        background-color: #6c757d;
+      }
+    }
+  }
+}
+
+// Breadcrumb
+.breadcrumb-nav {
+  margin-bottom: 1.5rem;
+
+  .breadcrumb {
+    background: white;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0;
+
+    .breadcrumb-item {
+      font-size: 0.9rem;
+
+      &.active {
+        color: var(--ceara-primary);
+        font-weight: 500;
+      }
+    }
+
+    .breadcrumb-link {
+      color: var(--ceara-accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--ceara-secondary);
+      }
+
+      i {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Cards de estatísticas
+.statistics-row {
+  .stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+
+      i {
+        font-size: 1.8rem;
+        color: white;
+      }
+    }
+
+    .stat-content {
+      flex-grow: 1;
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.2rem;
+        line-height: 1;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 0;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // Cores específicas dos cards
+  .stat-card-total {
+    border-left: 4px solid var(--ceara-primary);
+
+    .stat-icon {
+      background: linear-gradient(135deg, var(--ceara-primary), var(--ceara-secondary));
+    }
+
+    .stat-number {
+      color: var(--ceara-primary);
+    }
+  }
+
+  .stat-card-open {
+    border-left: 4px solid #ffc107;
+
+    .stat-icon {
+      background: linear-gradient(135deg, #ffc107, #ffca2c);
+    }
+
+    .stat-number {
+      color: #ffc107;
+    }
+  }
+
+  .stat-card-progress {
+    border-left: 4px solid #17a2b8;
+
+    .stat-icon {
+      background: linear-gradient(135deg, #17a2b8, #20c997);
+    }
+
+    .stat-number {
+      color: #17a2b8;
+    }
+  }
+
+  .stat-card-resolved {
+    border-left: 4px solid #28a745;
+
+    .stat-icon {
+      background: linear-gradient(135deg, #28a745, #34ce57);
+    }
+
+    .stat-number {
+      color: #28a745;
+    }
+  }
+}
+
+// Seção da tabela
+.table-section {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.6s ease-out;
+  animation-delay: 0.5s;
+
+  // Remove margins do componente filho
+  ::ng-deep app-table-called {
+    display: block;
+
+    .table-container {
+      margin: 0;
+
+      .card {
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+  }
+}
+
+// Footer
+.main-footer {
+  background: white;
+  border-top: 1px solid var(--border-light);
+  padding: 1.5rem 0;
+  margin-top: 2rem;
+
+  .footer-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+
+  .footer-version {
+    color: #6c757d;
+    font-size: 0.9rem;
+  }
+
+  .footer-link {
+    color: var(--ceara-accent);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--ceara-secondary);
+      text-decoration: underline;
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 1199px) {
+  .main-content {
+    padding: 1.5rem 0 3rem;
+  }
+
+  .page-header {
+    padding: 1.5rem;
+
+    .page-title {
+      font-size: 1.8rem;
+    }
+  }
+
+  .statistics-row {
+    .stat-card {
+      padding: 1.2rem;
+
+      .stat-icon {
+        width: 50px;
+        height: 50px;
+
+        i {
+          font-size: 1.5rem;
+        }
+      }
+
+      .stat-content .stat-number {
+        font-size: 1.7rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .page-header {
+    .page-actions {
+      margin-top: 1rem;
+
+      .btn {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+
+  .statistics-row {
+    .stat-card {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .main-content {
+    padding: 1rem 0 2rem;
+  }
+
+  .page-header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+
+    .page-title {
+      font-size: 1.5rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.9rem;
+    }
+
+    .page-actions {
+      text-align: center !important;
+
+      .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .breadcrumb-nav .breadcrumb {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .statistics-row {
+    .stat-card {
+      padding: 1rem;
+
+      .stat-icon {
+        width: 45px;
+        height: 45px;
+        margin-right: 0.8rem;
+
+        i {
+          font-size: 1.3rem;
+        }
+      }
+
+      .stat-content {
+        .stat-number {
+          font-size: 1.5rem;
+        }
+
+        .stat-label {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .main-footer {
+    padding: 1rem 0;
+    text-align: center;
+
+    .footer-text,
+    .footer-version {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .statistics-row {
+    .stat-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.2rem 0.8rem;
+
+      .stat-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+// Animações
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-header,
+.breadcrumb-nav,
+.stat-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card {
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}

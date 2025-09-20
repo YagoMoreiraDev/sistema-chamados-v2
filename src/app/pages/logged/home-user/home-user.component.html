@@ -1,1 +1,51 @@
-<p>home-user works!</p>
+<div class="home-main-container">
+  <div class="background-overlay">
+    <div class="content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="welcome-section">
+              <h1 class="welcome-title">Sistema HelpDesk</h1>
+              <p class="welcome-subtitle">Secretária dos Direitos Humanos</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5 justify-content-center">
+          <div class="col-lg-4 col-md-5 col-sm-8 col-10 mb-4">
+            <button class="info-card btn-card"
+                    type="button"
+                    (click)="navigateToMeusChamados()"
+                    aria-label="Visualizar meus chamados de suporte">
+              <div class="card-icon">
+                <i class="fa-solid fa-headset"></i>
+              </div>
+              <h3>Meus Chamados</h3>
+              <p>Acompanhe seus chamados</p>
+            </button>
+          </div>
+
+          <div class="col-lg-4 col-md-5 col-sm-8 col-10 mb-4">
+            <button class="info-card btn-card"
+                    type="button"
+                    (click)="openCalledModal()"
+                    aria-label="Abrir modal para criar novo chamado de suporte técnico">
+              <div class="card-icon">
+                <i class="fas fa-plus-circle"></i>
+              </div>
+              <h3>Criar Chamado</h3>
+              <p>Abra um novo chamado para suporte técnico</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Novo Chamado -->
+<app-called-modal
+  [isModalOpen]="isCalledModalOpen"
+  (modalClosed)="onCalledModalClosed()"
+  (chamadoCriado)="onChamadoCriado($event)">
+</app-called-modal>

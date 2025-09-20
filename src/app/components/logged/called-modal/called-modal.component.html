@@ -1,0 +1,252 @@
+<!-- Modal para Abertura de Chamado -->
+<div class="modal fade" id="calledModal" tabindex="-1" aria-labelledby="calledModalLabel" aria-hidden="true"
+     [class.show]="isModalOpen" [style.display]="isModalOpen ? 'block' : 'none'">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content modal-custom">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="calledModalLabel">
+          <i class="fas fa-plus-circle me-2"></i>
+          Novo Chamado de Atendimento
+        </h5>
+        <button type="button" class="btn-close btn-close-custom" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form [formGroup]="chamadoForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+
+          <!-- Informações Básicas -->
+          <div class="form-section">
+            <h6 class="section-title">
+              <i class="fas fa-info-circle me-2"></i>
+              Informações do Chamado
+            </h6>
+
+            <!-- Título do Atendimento -->
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label for="titulo" class="form-label required">Título do Atendimento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="titulo"
+                  formControlName="titulo"
+                  placeholder="Ex: Problema com impressora da sala 205"
+                  [class.is-invalid]="chamadoForm.get('titulo')?.invalid && chamadoForm.get('titulo')?.touched"
+                  [class.is-valid]="chamadoForm.get('titulo')?.valid && chamadoForm.get('titulo')?.touched">
+                <div class="invalid-feedback" *ngIf="chamadoForm.get('titulo')?.invalid && chamadoForm.get('titulo')?.touched">
+                  <small *ngIf="chamadoForm.get('titulo')?.errors?.['required']">O título é obrigatório</small>
+                  <small *ngIf="chamadoForm.get('titulo')?.errors?.['minlength']">O título deve ter pelo menos 10 caracteres</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Categorização -->
+          <div class="form-section">
+            <h6 class="section-title">
+              <i class="fas fa-tags me-2"></i>
+              Categorização do Atendimento
+            </h6>
+
+            <div class="row">
+              <!-- Categoria de Atendimento -->
+              <div class="col-md-6 mb-3">
+                <label for="categoria" class="form-label required">Categoria de Atendimento</label>
+                <select
+                  class="form-select"
+                  id="categoria"
+                  formControlName="categoria"
+                  (change)="onCategoriaChange($event)"
+                  [class.is-invalid]="chamadoForm.get('categoria')?.invalid && chamadoForm.get('categoria')?.touched"
+                  [class.is-valid]="chamadoForm.get('categoria')?.valid && chamadoForm.get('categoria')?.touched">
+                  <option value="">Selecione uma categoria</option>
+                  <option *ngFor="let categoria of categorias" [value]="categoria.id">
+                    {{ categoria.nome }} - {{ categoria.descricao }}
+                  </option>
+                </select>
+                <div class="invalid-feedback" *ngIf="chamadoForm.get('categoria')?.invalid && chamadoForm.get('categoria')?.touched">
+                  <small>Selecione uma categoria</small>
+                </div>
+              </div>
+
+              <!-- Tipo de Atendimento -->
+              <div class="col-md-6 mb-3">
+                <label for="tipo" class="form-label required">Tipo de Atendimento</label>
+                <select
+                  class="form-select"
+                  id="tipo"
+                  formControlName="tipo"
+                  (change)="onTipoChange($event)"
+                  [disabled]="!categoriaSelecionada"
+                  [class.is-invalid]="chamadoForm.get('tipo')?.invalid && chamadoForm.get('tipo')?.touched"
+                  [class.is-valid]="chamadoForm.get('tipo')?.valid && chamadoForm.get('tipo')?.touched">
+                  <option value="">{{ !categoriaSelecionada ? 'Selecione uma categoria primeiro' : 'Selecione o tipo' }}</option>
+                  <option *ngFor="let tipo of tiposDisponiveis" [value]="tipo.id">
+                    {{ tipo.nome }}
+                  </option>
+                </select>
+                <div class="invalid-feedback" *ngIf="chamadoForm.get('tipo')?.invalid && chamadoForm.get('tipo')?.touched">
+                  <small>Selecione um tipo de atendimento</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Alerta para categoria Equipamento -->
+            <div class="alert alert-warning d-flex align-items-center" *ngIf="mostrarAlertaEquipamento">
+              <i class="fas fa-exclamation-triangle me-2"></i>
+              <div>
+                <strong>Atenção!</strong> Para solicitações de equipamentos, descreva detalhadamente na descrição quais equipamentos você precisa (marca, modelo, especificações, etc.).
+              </div>
+            </div>
+
+            <!-- Nível de Prioridade -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="prioridade" class="form-label">Nível de Prioridade</label>
+                <select
+                  class="form-select"
+                  id="prioridade"
+                  formControlName="prioridade"
+                  [disabled]="!tipoSelecionado">
+                  <option value="">{{ !tipoSelecionado ? 'Selecione o tipo primeiro' : 'Prioridade será definida automaticamente' }}</option>
+                  <option *ngFor="let prioridade of prioridadesDisponiveis"
+                          [value]="prioridade.nivel"
+                          [selected]="prioridade.nivel === prioridadeAutomatica">
+                    {{ prioridade.nome }} - {{ prioridade.descricao }}
+                  </option>
+                </select>
+                <div class="form-text" *ngIf="prioridadeAutomatica">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Prioridade sugerida baseada na categoria e tipo selecionados:
+                  <strong class="priority-badge" [ngClass]="'priority-' + prioridadeAutomatica">
+                    {{ getPrioridadeNome(prioridadeAutomatica) }}
+                  </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descrição Detalhada -->
+          <div class="form-section">
+            <h6 class="section-title">
+              <i class="fas fa-align-left me-2"></i>
+              Descrição do Problema
+            </h6>
+
+            <div class="row">
+              <div class="col-12 mb-3">
+                <label for="descricao" class="form-label required">Descrição Detalhada</label>
+                <textarea
+                  class="form-control"
+                  id="descricao"
+                  formControlName="descricao"
+                  rows="4"
+                  placeholder="Descreva detalhadamente o problema que você está enfrentando. Inclua informações como: quando aconteceu, o que você estava fazendo, mensagens de erro, etc."
+                  [class.is-invalid]="chamadoForm.get('descricao')?.invalid && chamadoForm.get('descricao')?.touched"
+                  [class.is-valid]="chamadoForm.get('descricao')?.valid && chamadoForm.get('descricao')?.touched">
+                </textarea>
+                <div class="form-text">
+                  <small>
+                    <i class="fas fa-lightbulb me-1"></i>
+                    Quanto mais detalhes você fornecer, mais rápido conseguiremos resolver seu problema.
+                  </small>
+                </div>
+                <div class="invalid-feedback" *ngIf="chamadoForm.get('descricao')?.invalid && chamadoForm.get('descricao')?.touched">
+                  <small *ngIf="chamadoForm.get('descricao')?.errors?.['required']">A descrição é obrigatória</small>
+                  <small *ngIf="chamadoForm.get('descricao')?.errors?.['minlength']">A descrição deve ter pelo menos 20 caracteres</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Informações Adicionais (Opcionais) -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="localizacao" class="form-label">Localização</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="localizacao"
+                  formControlName="localizacao"
+                  placeholder="Ex: Sala 205, Andar 2, Setor Administrativo">
+                <div class="form-text">
+                  <small>Informe onde está localizado o problema (opcional)</small>
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="contato" class="form-label">Telefone/Ramal</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="contato"
+                  formControlName="contato"
+                  placeholder="Ex: (85) 9999-9999 ou Ramal 1234">
+                <div class="form-text">
+                  <small>Para contato durante o atendimento (opcional)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resumo do Chamado -->
+          <div class="form-section" *ngIf="chamadoForm.valid">
+            <h6 class="section-title">
+              <i class="fas fa-clipboard-check me-2"></i>
+              Resumo do Chamado
+            </h6>
+            <div class="summary-card">
+              <div class="row">
+                <div class="col-md-8">
+                  <p><strong>Título:</strong> {{ chamadoForm.get('titulo')?.value }}</p>
+                  <p><strong>Categoria:</strong> {{ getCategoriaNome(chamadoForm.get('categoria')?.value) }}</p>
+                  <p><strong>Tipo:</strong> {{ getTipoNome(chamadoForm.get('tipo')?.value) }}</p>
+                  <p><strong>Prioridade:</strong>
+                    <span class="priority-badge" [ngClass]="'priority-' + (chamadoForm.get('prioridade')?.value || prioridadeAutomatica)">
+                      {{ getPrioridadeNome(chamadoForm.get('prioridade')?.value || prioridadeAutomatica) }}
+                    </span>
+                  </p>
+                </div>
+                <div class="col-md-4 text-end">
+                  <div class="estimated-time">
+                    <i class="fas fa-clock me-1"></i>
+                    <small>Tempo estimado de resposta:</small>
+                    <div class="time-estimate">{{ getTempoEstimado() }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">
+          <i class="fas fa-times me-1"></i>
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-outline-primary" (click)="resetForm()">
+          <i class="fas fa-undo me-1"></i>
+          Limpar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="!chamadoForm.valid || isSubmitting"
+          (click)="onSubmit()">
+          <output *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" aria-live="polite"></output>
+          <i *ngIf="!isSubmitting" class="fas fa-paper-plane me-1"></i>
+          {{ isSubmitting ? 'Enviando...' : 'Abrir Chamado' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop do Modal -->
+<div class="modal-backdrop fade" *ngIf="isModalOpen" [class.show]="isModalOpen" (click)="closeModal()"></div>
