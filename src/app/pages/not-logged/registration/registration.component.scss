@@ -1,0 +1,45 @@
+.container-home-auth {
+  background-image:
+    url('../../../../../public/fundo-tela-helpdesk.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100dvh;
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .content-home-auth {
+    height: calc(100dvh - 60px);
+  }
+}
+
+@media (max-width: 900px) {
+  .container-home-auth {
+    min-height: 100vh;
+    height: 100vh;
+  }
+  .content-home-auth {
+    height: calc(100vh - 50px);
+    flex-direction: column;
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container-home-auth {
+    min-height: 100vh;
+    height: 100vh;
+    padding: 0;
+  }
+  .content-home-auth {
+    height: auto;
+    padding: 8px;
+  }
+}
+

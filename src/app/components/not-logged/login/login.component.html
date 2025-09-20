@@ -1,0 +1,59 @@
+<div class="login-background">
+  <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100 justify-content-center">
+      <div class="col-md-4 col-sm-6 col-8">
+        <div class="login-card">
+          <h2 class="text-white text-center mb-4">Login</h2>
+
+          <form>
+            <!-- Username Field -->
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control login-input"
+                placeholder="Seu E-mail Institucional"
+                autocomplete="username"
+              >
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+              <input
+                type="password"
+                class="form-control login-input"
+                placeholder="Sua Senha"
+                autocomplete="current-password"
+              >
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="row mb-4">
+              <div class="col-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMe">
+                  <label class="form-check-label text-white-50" for="rememberMe">
+                    Lembrar-me
+                  </label>
+                </div>
+              </div>
+              <div class="col-6 text-end">
+                <a href="#" class="text-white-50 text-decoration-none forgot-link">Esqueceu a senha?</a>
+              </div>
+            </div>
+
+            <!-- Login Button -->
+            <div class="mb-3">
+              <button type="submit" class="btn btn-light w-100 login-btn">Entrar</button>
+            </div>
+
+            <!-- Register Link -->
+            <div class="text-center">
+              <span class="text-white-50">Primeiro acesso ? </span>
+              <a routerLink="nova-senha" class="text-white register-link">Cadastre sua senha</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
