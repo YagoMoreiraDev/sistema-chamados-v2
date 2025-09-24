@@ -78,78 +78,105 @@
   }
 }
 
-// Cards informativos - Estilo da segunda imagem
+// Cards informativos
 .info-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(220, 220, 220, 0.6);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  height: 100%;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 15px !important;
+  padding: 2rem 1.5rem !important;
+  text-align: center !important;
+  box-shadow: 0 8px 25px rgba(30, 75, 42, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  height: 100% !important;
+  cursor: pointer;
   position: relative;
-  backdrop-filter: blur(10px);
+  overflow: hidden;
 
   .card-icon {
     width: 80px;
     height: 80px;
-    background: rgba(230, 230, 230, 0.4);
+    background: linear-gradient(135deg, var(--ceara-green-primary), var(--ceara-green-secondary));
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    border: 1px solid rgba(210, 210, 210, 0.5);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(45, 110, 62, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     i {
       font-size: 2rem;
-      color: #999;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      color: black;
+      transition: all 0.3s ease;
     }
   }
 
   h3 {
-    color: #444;
+    color: var(--ceara-green-dark);
     font-weight: 600;
-    margin-bottom: 0.8rem;
-    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   p {
-    color: #888;
-    font-size: 0.92rem;
-    line-height: 1.4;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
     margin: 0;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  // Todos os efeitos de hover centralizados
   &:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-    border-color: rgba(200, 200, 200, 0.8);
-    background: rgba(255, 255, 255, 1);
+    transform: translateY(-8px) scale(1.03) !important;
+    box-shadow: 0 15px 40px rgba(30, 75, 42, 0.4) !important;
+    border-color: var(--ceara-green-secondary) !important;
+    background: rgba(255, 255, 255, 1) !important;
 
     .card-icon {
-      background: rgba(245, 245, 245, 0.8);
-      border-color: rgba(200, 200, 200, 0.7);
-      transform: scale(1.08);
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 20px rgba(45, 110, 62, 0.4);
+      background: linear-gradient(135deg, var(--ceara-green-secondary), var(--ceara-green-light));
 
       i {
-        color: #666;
+        transform: scale(1.05);
       }
     }
 
     h3 {
-      color: #111;
+      color: var(--ceara-green-primary);
+      transform: translateY(-2px);
     }
 
     p {
-      color: #444;
+      color: #555;
+      transform: translateY(-1px);
     }
+  }
+
+  // Efeito de pré-hover (quando o mouse se aproxima)
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(75, 157, 95, 0.05));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Garantir que o conteúdo fique acima do overlay
+  > * {
+    position: relative;
+    z-index: 1;
   }
 }
 
@@ -232,37 +259,27 @@
 
 // Estilos específicos para botão-card
 .btn-card {
-  border: none;
-  background: transparent;
-  width: 100%;
-  text-align: inherit;
-  font-family: inherit;
-  padding: 0;
-  cursor: pointer;
-  display: block;
+  all: unset !important;
+  display: block !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
 
   // Estados de foco para acessibilidade
   &:focus {
-    outline: 2px solid #666;
-    outline-offset: 2px;
+    outline: 2px solid var(--ceara-green-primary) !important;
+    outline-offset: 3px !important;
   }
 
-  // Remove estilos padrão de botão
-  &:focus:not(:focus-visible) {
-    outline: none;
-  }
-
-  // Para navegadores que suportam focus-visible
-  &:focus-visible {
-    outline: 2px solid #666;
-    outline-offset: 2px;
-  }
-
-  // Remove estilos conflitantes do Bootstrap
-  &:active,
-  &:focus {
-    box-shadow: none !important;
-    background: transparent !important;
-    border: none !important;
+  // Força aplicação dos estilos do .info-card
+  &.info-card {
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 15px !important;
+    padding: 2rem 1.5rem !important;
+    text-align: center !important;
+    box-shadow: 0 8px 25px rgba(30, 75, 42, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.3s ease !important;
+    height: 100% !important;
   }
 }
